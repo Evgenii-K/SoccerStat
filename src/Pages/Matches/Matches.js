@@ -1,16 +1,15 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect, useDispatch } from 'react-redux'
 import { fetchData } from '../../store/actions'
-import {useRouteMatch} from 'react-router-dom'
-import {FETCH_MATCHES} from '../../store/types'
+import { useRouteMatch } from 'react-router-dom'
+import { FETCH_MATCHES } from '../../store/types'
 
 import MatchCard from '../../Components/MatchCard/MatchCard'
 import List from '../../Components/List/List'
 import Warning from '../../Components/Warning/Warning'
 
-function Matches ({matches, warning}) {
-
-  const initialstate = {dateFrom: '', dateTo: ''}
+function Matches({ matches, warning }) {
+  const initialstate = { dateFrom: '', dateTo: '' }
   const [value, setValue] = useState(initialstate)
 
   const params = useRouteMatch().params
@@ -23,22 +22,23 @@ function Matches ({matches, warning}) {
     dispatch(fetchData(url, FETCH_MATCHES, 'matches'))
   }, [])
 
-  function onChange (event) {
+  function onChange(event) {
     const value = event.target.value
     const name = event.target.name
-    setValue(current => {
+    setValue((current) => {
       return {
-        ...current, [name]: value
+        ...current,
+        [name]: value,
       }
     })
   }
 
-  function search () {
+  function search() {
     if (!value?.dateFrom || !value?.dateTo) return
     dispatch(fetchData(url, FETCH_MATCHES, 'matches'))
   }
 
-  function resetQueryParams () {
+  function resetQueryParams() {
     setValue(initialstate)
     dispatch(fetchData(url, FETCH_MATCHES, 'matches'))
   }
@@ -46,7 +46,7 @@ function Matches ({matches, warning}) {
   return (
     <>
       <h1>Календарь лиги</h1>
-      <input 
+      {/* <input 
         type='date' 
         name='dateFrom' 
         value={value.dateFrom}
@@ -84,15 +84,14 @@ function Matches ({matches, warning}) {
             />
           </List>
         )
-      }
+      } */}
     </>
   )
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   matches: state.posts.fetchMatches,
-  warning: state.app.warning
+  warning: state.app.warning,
 })
 
 export default connect(mapStateToProps)(Matches)
-

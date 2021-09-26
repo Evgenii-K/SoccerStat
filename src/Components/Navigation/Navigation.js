@@ -1,14 +1,14 @@
-import * as React from 'react';
-import { useHistory } from 'react-router-dom';
+import * as React from 'react'
 
-import { styled, alpha } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Box from '@material-ui/core/Box';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
-import SearchIcon from '@material-ui/icons/Search';
+import { styled, alpha } from '@material-ui/core/styles'
+import { AppBar, IconButton, Button } from '@material-ui/core'
+import Box from '@material-ui/core/Box'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
+import InputBase from '@material-ui/core/InputBase'
+import SearchIcon from '@material-ui/icons/Search'
 import Link from '@material-ui/core/Link'
+import MenuIcon from '@material-ui/icons/Menu'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -23,7 +23,7 @@ const Search = styled('div')(({ theme }) => ({
     marginLeft: theme.spacing(1),
     width: 'auto',
   },
-}));
+}))
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 2),
@@ -33,7 +33,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-}));
+}))
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
@@ -50,37 +50,35 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
       },
     },
   },
-}));
+}))
 
 export default function Navigation() {
-
-  const history = useHistory()
-
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
+          <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+            <MenuIcon />
+          </IconButton>
           <Typography
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-          >
-            <Link href="/" underline="none" color='white'>
-              Soccer Stat
-            </Link>
+            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}>
+            Soccer Stat
           </Typography>
+          <Button color="inherit" href="/">
+            Main
+          </Button>
+          <Box sx={{ flexGrow: 0.2 }} />
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
+            <StyledInputBase placeholder="Search…" inputProps={{ 'aria-label': 'search' }} />
           </Search>
         </Toolbar>
       </AppBar>
     </Box>
-  );
+  )
 }

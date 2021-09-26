@@ -1,21 +1,30 @@
-import {BrowserRouter, NavLink, Route, Switch} from 'react-router-dom'
+import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import Competitions from './Pages/Competitions/Competitions';
 import Team from './Pages/Team/Team'
 import Page404 from './Pages/Page404/Page404';
 import Competition from './Pages/Competition/Competition'
 import Navigation from './Components/Navigation/Navigation';
 
-import CssBaseline from '@material-ui/core/CssBaseline';
+import {CssBaseline, Paper} from '@material-ui/core';
 import Container from '@material-ui/core/Container';
+import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+
+const theme = createTheme({
+  palette: {
+    background: {
+      default: '#1976b2',
+    }
+  }
+})
 
 function App() {
   return (
     <BrowserRouter>
+      <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Container maxWidth="md">
-        <Navigation/>
-        <div className="row">
-          <div className="col">
+        <Container maxWidth="lg">
+          <Paper square elevation={6}>
+            <Navigation/>
             <Switch>
               <Route path={'/'} exact>
                 <Competitions />
@@ -30,10 +39,10 @@ function App() {
                 <Page404 />
               </Route>
             </Switch>
-          </div>
-        </div>
-      </Container>
-    </BrowserRouter>    
+          </Paper>
+        </Container>
+      </ThemeProvider>  
+    </BrowserRouter> 
   );
 }
 

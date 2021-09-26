@@ -1,17 +1,16 @@
-import React, {useEffect} from 'react'
-import {useDispatch, useSelector} from 'react-redux'
-import {fetchData} from '../../store/actions'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchData } from '../../store/actions'
 import List from '../../Components/List/List'
 import CompetitionCard from '../../Components/CompetitionCard/CompetitionCard'
-import {useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import Warning from '../../Components/Warning/Warning'
-import {FETCH_COMPETITIONS} from '../../store/types'
+import { FETCH_COMPETITIONS } from '../../store/types'
 
 function Competitions() {
-
   const history = useHistory()
   const dispatch = useDispatch()
-  
+
   const posts = useSelector((state) => {
     return state.posts.fetchCompetitions
   })
@@ -21,7 +20,7 @@ function Competitions() {
 
   const plan = 'TIER_ONE'
   const url = `http://api.football-data.org/v2/competitions?plan=${plan}`
-  
+
   useEffect(() => {
     dispatch(fetchData(url, FETCH_COMPETITIONS, 'competitions'))
   }, [])
@@ -33,25 +32,29 @@ function Competitions() {
   return (
     <>
       <h1>Список лиг</h1>
-      {warning ?
-        <Warning 
-          text='Ошибка загрузки данных с сервера'
-          reload={() => dispatch(fetchData(url, FETCH_COMPETITIONS, 'competitions'))}
-        />
-        :
-        posts.map(post => 
-          <List
-            key={post.id} 
-          >
-            <CompetitionCard 
-              clickHandler={clickHandler}
-              post={post}
-            />
-          </List>
-        )
-      }
+      <List data={posts} clickHandler={clickHandler}>
+        <CompetitionCard />
+      </List>
     </>
   )
 }
 
 export default Competitions
+
+// {warning ?
+//   <Warning
+//     text='Ошибка загрузки данных с сервера'
+//     reload={() => dispatch(fetchData(url, FETCH_COMPETITIONS, 'competitions'))}
+//   />
+//   :
+//   posts.map(post =>
+//     <List
+//       key={post.id}
+//     >
+//       <CompetitionCard
+//         clickHandler={clickHandler}
+//         post={post}
+//       />
+//     </List>
+//   )
+// }
